@@ -20,7 +20,7 @@
   - Horizontal scaling is linear
 
 # Overview of Hadoop
-  - HDFC  - distribute storage
+  - HDFS  - distribute storage
           - back copy
 
   - YARN  - Data processing
@@ -86,11 +86,13 @@
            - keep tracks of nodes, ups and downs.
 
   - Data Injection :
+
            - Sqoop  :
               - tying hadoop db into relational database.
               - Anything that can talk to ODBC or JDBC can be transformed by Sqoop into your
                 HDFS file system.
               - Sqoop is basically a connector between Hadoop and your legacy databases.
+
            - Flume  :
               - transporting Web logs - very large scale - very reliably to your cluster.
               - Flume can actually listen to the web logs coming in from those web servers in real time

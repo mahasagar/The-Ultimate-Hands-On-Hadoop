@@ -26,7 +26,7 @@
 
 
 # Run query
-# movie with highest rating
+# Movie with highest rating
 ```
 select movie_id,count(movie_id) as ratingCount
 from ratings

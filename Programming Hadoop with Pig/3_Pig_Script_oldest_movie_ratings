@@ -1,0 +1,17 @@
+ratings = LOAD '/user/maria_dev/ml-100k/u.data' AS (userId : int, movieId : int, rating:int, ratingTime:int);
+metadata = LOAD '/user/maria_dev/ml-100k/u.item' USING PigStorage('|') AS (movieId:int, MovieTitle:chararray, releaseDate:chararray, imdbLink:chararray);
+
+nameLoopup = FOREACH metadata GENERATE movieId,MovieTitle, ToUnixTime(ToDate(releaseDate,'dd-MMM-yyyy')) AS releaseTime;
+
+ratingsByMovie = GROUP ratings BY movieId;
+avgRatings = FOREACH ratingsByMovie GENERATE group AS movieId, AVG(ratings.rating) AS avgRating;
+
+fiveStarMovies = FILTER avgRatings by avgRating > 4.0;
+
+fiveStarWithData = JOIN fiveStarMovies BY movieId, nameLoopup BY movieId;
+
+oldFiveStarMovies = ORDER fiveStarWithData BY nameLoopup::releaseTime;
+
+DUMP oldFiveStarMovies;
+
+
